@@ -13,7 +13,7 @@ using WpfCarTable.ViewModels.Base;
 
 namespace WpfCarTable.ViewModels
 {
-    internal class MainWindowViewModel : ViewModel
+    public class MainWindowViewModel : ViewModel
     {
 
         #region Заголовок окна
