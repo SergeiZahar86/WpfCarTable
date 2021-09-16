@@ -38,7 +38,7 @@ namespace WpfCarTable
         public static IServiceProvider Services => Host.Services;
 
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-           .AddDatabase(host.Configuration.GetSection("Database"))
+           //.AddDatabase(host.Configuration.GetSection("Database"))
            .AddServices()
            .AddViewModels();
 

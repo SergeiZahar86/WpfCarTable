@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WpfCarTable.ViewModels;
 
 namespace WpfCarTable.Services
 {
     static class ServicesRegistrator
     {
-        public static IServiceCollection AddServices(this IServiceCollection services) => services;
+        public static IServiceCollection AddServices(this IServiceCollection services) => services
+            .AddSingleton<MainWindowViewModel>()
+
            //.AddTransient<ISalesService, SalesService>()
            //.AddTransient<IUserDialog, UserDialogService>();
+           ;
     }
 }
