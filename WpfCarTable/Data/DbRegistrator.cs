@@ -14,7 +14,8 @@ namespace WpfCarTable.Data
     {
         public static IServiceCollection AddDatabase(
             this IServiceCollection services,
-            IConfiguration Configuration) => services.AddDbContext<EntitiesDBContext>(opt =>
+            IConfiguration Configuration) => services
+            .AddDbContext<EntitiesDBContext>(opt =>
         {
             var type = Configuration["Type"];
             switch (type)
@@ -33,8 +34,9 @@ namespace WpfCarTable.Data
                    //    break;
             }
         })
-            .AddTransient<DbInitializer>()
-            .AddRepositoriesInDB();
+            //.AddTransient<DbInitializer>()
+            //.AddRepositoriesInDB()
+            ;
 
     }
 }
