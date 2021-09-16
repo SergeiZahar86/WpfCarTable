@@ -23,7 +23,7 @@ namespace WpfCarTable.ViewModels
             get => _title;
             set => Set(ref _title, value);
         }
-        private string _title = "Анализ статистики CV19";
+        private string _title = "Объёмы продаж";
         #endregion
 
 
