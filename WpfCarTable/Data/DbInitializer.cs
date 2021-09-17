@@ -1,153 +1,176 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Persistence;
+using Persistence.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfCarTable.Services;
 
 namespace WpfCarTable.Data
 {
     class DbInitializer
     {
-        //private readonly BookinistDB _db;
-        //private readonly ILogger<DbInitializer> _Logger;
+        private readonly EntitiesDBContext _db;
+        private readonly ILogger<DbInitializer> _Logger;
 
-        //public DbInitializer(BookinistDB db, ILogger<DbInitializer> Logger)
-        //{
-        //    _db = db;
-        //    _Logger = Logger;
-        //}
+        public DbInitializer(EntitiesDBContext db, ILogger<DbInitializer> Logger)
+        {
+            _db = db;
+            _Logger = Logger;
+        }
 
-        //public async Task InitializeAsync()
-        //{
-        //    var timer = Stopwatch.StartNew();
-        //    _Logger.LogInformation("Инициализация БД...");
+        public async Task InitializeAsync()
+        {
+            var timer = Stopwatch.StartNew();
+            _Logger.LogInformation("Инициализация БД...");
 
-        //    //_Logger.LogInformation("Удаление существующей БД...");
-        //    //await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
-        //    //_Logger.LogInformation("Удаление существующей БД выполнено за {0} мс", timer.ElapsedMilliseconds);
+            _Logger.LogInformation("Удаление существующей БД...");
+            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
+            _Logger.LogInformation("Удаление существующей БД выполнено за {0} мс", timer.ElapsedMilliseconds);
 
-        //    //_db.Database.EnsureCreated();
+            await _db.Database.EnsureCreatedAsync();
+            //await _db.Database.MigrateAsync();
 
-        //    _Logger.LogInformation("Миграция БД...");
-        //    await _db.Database.MigrateAsync().ConfigureAwait(false);
-        //    _Logger.LogInformation("Миграция БД выполнена за {0} мс", timer.ElapsedMilliseconds);
+            _Logger.LogInformation("Миграция БД...");
+            await _db.Database.MigrateAsync().ConfigureAwait(false);
+            _Logger.LogInformation("Миграция БД выполнена за {0} мс", timer.ElapsedMilliseconds);
 
-        //    if (await _db.Books.AnyAsync()) return;
+            if (await _db.Orders.AnyAsync()) return;
 
-        //    await InitializeCategories();
-        //    await InitializeBooks();
-        //    await InitializeSellers();
-        //    await InitializeBuyers();
-        //    await InitializeDeals();
+            await InitializeBrandCarAsync();
+            await InitializeModelCarAndOrdersAsync();
+            //await InitializeOrder();
 
-        //    _Logger.LogInformation("Инициализация БД выполнена за {0} с", timer.Elapsed.TotalSeconds);
-        //}
+            _Logger.LogInformation("Инициализация БД выполнена за {0} с", timer.Elapsed.TotalSeconds);
+        }
 
-        //private const int __CategoriesCount = 10;
+        private const int __brandCarsCount = 5;
 
-        //private Category[] _Categories;
-        //private async Task InitializeCategories()
-        //{
-        //    var timer = Stopwatch.StartNew();
-        //    _Logger.LogInformation("Инициализация категорий...");
+        private string[] brands = { "BMW", "Audi", "Mercedes", "Infiniti", "Lexus" };
 
-        //    _Categories = new Category[__CategoriesCount];
-        //    for (var i = 0; i < __CategoriesCount; i++)
-        //        _Categories[i] = new Category { Name = $"Категория {i + 1}" };
+        private string[] modelBMW = { "BMW 7", "BMW 8", "BMW 5", "BMW X6", "BMW X5" };
 
-        //    await _db.Categorys.AddRangeAsync(_Categories);
-        //    await _db.SaveChangesAsync();
+        private string[] modelAudi = { "Audi A8", "Audi A4", "Audi A6", "Audi S5", "Audi A3" };
 
-        //    _Logger.LogInformation("Инициализация категорий выполнена за {0} мс", timer.ElapsedMilliseconds);
-        //}
+        private string[] modelMercedes = { "Mercedes-Benz CLA AMG", "Mercedes-Benz CLS",
+            "Mercedes-Benz S", "Mercedes-Benz A", "Mercedes-Benz C" };
 
-        //private const int __BooksCount = 10;
-        //private Book[] _Books;
-        //private async Task InitializeBooks()
-        //{
-        //    var timer = Stopwatch.StartNew();
-        //    _Logger.LogInformation("Инициализация книг...");
+        private string[] modelInfiniti = { "Infiniti Q50", "Infiniti Q60",
+            "Infiniti QX60", "Infiniti QX50", "Infiniti QX80" };
 
-        //    var rnd = new Random();
-        //    _Books = Enumerable.Range(1, __BooksCount)
-        //       .Select(i => new Book
-        //       {
-        //           Name = $"Книга {i}",
-        //           Category = rnd.NextItem(_Categories)
-        //       })
-        //       .ToArray();
+        private string[] modelLexus = { "Lexus LC", "Lexus LS", "Lexus ES",
+            "Lexus GX", "Lexus LX" };
 
-        //    await _db.Books.AddRangeAsync(_Books);
-        //    await _db.SaveChangesAsync();
+        private BrandCar[] brandCars;
 
-        //    _Logger.LogInformation("Инициализация книг выполнена за {0} мс", timer.ElapsedMilliseconds);
-        //}
+        private async Task InitializeBrandCarAsync()
+        {
+            var timer = Stopwatch.StartNew();
+            _Logger.LogInformation("Инициализация марок автомобилей...");
 
-        //private const int __SellersCount = 10;
-        //private Seller[] _Sellers;
-        //private async Task InitializeSellers()
-        //{
-        //    var timer = Stopwatch.StartNew();
-        //    _Logger.LogInformation("Инициализация продавцов...");
+            brandCars = new BrandCar[__brandCarsCount];
+            for (var i = 0; i < __brandCarsCount; i++)
+                brandCars[i] = new BrandCar { Name = brands[i] };
 
-        //    _Sellers = Enumerable.Range(1, __SellersCount)
-        //       .Select(i => new Seller
-        //       {
-        //           Name = $"Продавец-Имя {i}",
-        //           Surname = $"Продавец-Фамилия {i}",
-        //           Patronymic = $"Продавец-Отчество {i}"
-        //       })
-        //       .ToArray();
+            await _db.BrandCars.AddRangeAsync(brandCars);
+            await _db.SaveChangesAsync();
 
-        //    await _db.Sellers.AddRangeAsync(_Sellers);
-        //    await _db.SaveChangesAsync();
+            _Logger.LogInformation("Инициализация марок авто выполнена за {0} мс", timer.ElapsedMilliseconds);
+        }
 
-        //    _Logger.LogInformation("Инициализация продавцов выполнена за {0} мс", timer.ElapsedMilliseconds);
-        //}
 
-        //private const int __BuyersCount = 10;
-        //private Buyer[] _Buyers;
-        //private async Task InitializeBuyers()
-        //{
-        //    var timer = Stopwatch.StartNew();
-        //    _Logger.LogInformation("Инициализация покупателей...");
+        private List<Order> ordersList = new List<Order>();
+        private ModelCar modelCar = new ModelCar();
+        Random rnd = new();
+        private async Task InitializeModelCarAndOrdersAsync()
+        {
+            var timer = Stopwatch.StartNew();
+            _Logger.LogInformation("Инициализация всех моделей и заказов...");
 
-        //    _Buyers = Enumerable.Range(1, __BuyersCount)
-        //       .Select(i => new Buyer
-        //       {
-        //           Name = $"Покупатель-Имя {i}",
-        //           Surname = $"Покупатель-Фамилия {i}",
-        //           Patronymic = $"Покупатель-Отчество {i}"
-        //       })
-        //       .ToArray();
+            foreach(BrandCar br in brandCars)
+            {
+                //modelCar.Brand = null;
+                //modelCar.Name = null;
 
-        //    await _db.Buyers.AddRangeAsync(_Buyers);
-        //    await _db.SaveChangesAsync();
+                switch (br.Name)
+                {
+                    case "BMW":
+                        _Logger.LogInformation("Инициализация моделей и заказов BMW...");
+                        await InitOrdersAndModelsAsync(br, modelBMW);
+                        _Logger.LogInformation("Инициализация марок BMW выполнена за {0} мс", timer.ElapsedMilliseconds);
+                        //for (var i = 0; i < modelBMW.Length; i++)
+                        //{
+                        //    modelCar.Brand = br;
+                        //    modelCar.Name = modelBMW[1];
 
-        //    _Logger.LogInformation("Инициализация покупателей выполнена за {0} мс", timer.ElapsedMilliseconds);
-        //}
+                        //    for (int k = 0; k < 100; k++)
+                        //    {
+                        //        ordersList.Add(new Order
+                        //        {
+                        //            Model_Car = modelCar,
+                        //            Proceeds = rnd.Next(1000000, 6000000),
+                        //            Date = new DateTime(rnd.Next(2016,2022),rnd.Next(1,13),rnd.Next(1,31))
+                        //        });
+                        //    }
+                        //    await _db.ModelCars.AddAsync(modelCar);
+                        //    await _db.Orders.AddRangeAsync(ordersList);
+                        //    ordersList.Clear();
+                        //}
 
-        //private const int __DealsCount = 1000;
-        //private async Task InitializeDeals()
-        //{
-        //    var timer = Stopwatch.StartNew();
-        //    _Logger.LogInformation("Инициализация сделок...");
+                        break;
+                    case "Audi":
+                        _Logger.LogInformation("Инициализация моделей и заказов Audi...");
+                        await InitOrdersAndModelsAsync(br, modelAudi);
+                        _Logger.LogInformation("Инициализация марок Audi выполнена за {0} мс", timer.ElapsedMilliseconds);
+                        break;
+                    case "Mercedes":
+                        _Logger.LogInformation("Инициализация моделей и заказов Mercedes...");
+                        await InitOrdersAndModelsAsync(br, modelMercedes);
+                        _Logger.LogInformation("Инициализация марок Mercedes выполнена за {0} мс", timer.ElapsedMilliseconds);
+                        break;
+                    case "Infiniti":
+                        _Logger.LogInformation("Инициализация моделей и заказов Infiniti...");
+                        await InitOrdersAndModelsAsync(br, modelInfiniti);
+                        _Logger.LogInformation("Инициализация марок Infiniti выполнена за {0} мс", timer.ElapsedMilliseconds);
+                        break;
+                    case "Lexus":
+                        _Logger.LogInformation("Инициализация моделей и заказов Lexus...");
+                        await InitOrdersAndModelsAsync(br, modelLexus);
+                        _Logger.LogInformation("Инициализация марок Lexus выполнена за {0} мс", timer.ElapsedMilliseconds);
+                        break;
+                }
+            }
+            _Logger.LogInformation("Инициализация моделей авто и заказов" +
+                " выполнена за {0} мс", timer.Elapsed.TotalSeconds);
+        }
 
-        //    var rnd = new Random();
+        private async Task InitOrdersAndModelsAsync(BrandCar br, string[] modelArray)
+        {
+            for (var i = 0; i < modelArray.Length; i++)
+            {
 
-        //    var deals = Enumerable.Range(1, __DealsCount)
-        //       .Select(i => new Deal
-        //       {
-        //           Book = rnd.NextItem(_Books),
-        //           Seller = rnd.NextItem(_Sellers),
-        //           Buyer = rnd.NextItem(_Buyers),
-        //           Price = (decimal)(rnd.NextDouble() * 4000 + 700)
-        //       });
+                modelCar.Brand = br;
+                modelCar.Name = modelArray[i];
 
-        //    await _db.Deals.AddRangeAsync(deals);
-        //    await _db.SaveChangesAsync();
+                for (int k = 0; k < 100; k++)
+                {
+                    ordersList.Add(new Order
+                    {
+                        Model_Car = modelCar,
+                        Proceeds = rnd.Next(1000000, 6000000),
+                        Date = new DateTime(rnd.Next(2016, 2022), rnd.Next(1, 13), rnd.Next(1, 31))
+                    });
+                }
+                await _db.ModelCars.AddAsync(modelCar);
+                await _db.Orders.AddRangeAsync(ordersList);
+                await _db.SaveChangesAsync();
+                ordersList.Clear();
+            }
+        }
 
-        //    _Logger.LogInformation("Инициализация сделок выполнена за {0} мс", timer.ElapsedMilliseconds);
-        //}
     }
 }

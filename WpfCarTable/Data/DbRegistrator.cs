@@ -34,7 +34,7 @@ namespace WpfCarTable.Data
                    //    break;
             }
         })
-            //.AddTransient<DbInitializer>()
+            .AddTransient<DbInitializer>()
             //.AddRepositoriesInDB()
             ;
 
