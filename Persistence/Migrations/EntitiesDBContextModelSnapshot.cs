@@ -88,7 +88,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Persistence.Entities.Order", b =>
                 {
                     b.HasOne("Persistence.Entities.ModelCar", "Model_Car")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("Model_CarId");
 
                     b.Navigation("Model_Car");
@@ -97,6 +97,11 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Persistence.Entities.BrandCar", b =>
                 {
                     b.Navigation("ModelsCar");
+                });
+
+            modelBuilder.Entity("Persistence.Entities.ModelCar", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

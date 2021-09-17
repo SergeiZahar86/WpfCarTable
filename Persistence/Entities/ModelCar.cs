@@ -1,4 +1,5 @@
 ﻿using Persistence.Entities.Base;
+using System.Collections.Generic;
 
 namespace Persistence.Entities
 {
@@ -8,5 +9,6 @@ namespace Persistence.Entities
     public class ModelCar : NamedEntity
     {
         public virtual BrandCar Brand { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
