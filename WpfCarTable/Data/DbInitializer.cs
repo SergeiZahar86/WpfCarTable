@@ -32,7 +32,7 @@ namespace WpfCarTable.Data
             await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
             _Logger.LogInformation("Удаление существующей БД выполнено за {0} мс", timer.ElapsedMilliseconds);
 
-            await _db.Database.EnsureCreatedAsync();
+            //await _db.Database.EnsureCreatedAsync();
             //await _db.Database.MigrateAsync();
 
             _Logger.LogInformation("Миграция БД...");
@@ -86,6 +86,9 @@ namespace WpfCarTable.Data
         private List<Order> ordersList = new List<Order>();
         private ModelCar modelCar = new ModelCar();
         Random rnd = new();
+        private int year;
+        private int month;
+        private int day;
         private async Task InitializeModelCarAndOrdersAsync()
         {
             var timer = Stopwatch.StartNew();
@@ -152,24 +155,35 @@ namespace WpfCarTable.Data
         {
             for (var i = 0; i < modelArray.Length; i++)
             {
-
+                modelCar.Id = new Guid();
                 modelCar.Brand = br;
                 modelCar.Name = modelArray[i];
 
                 for (int k = 0; k < 100; k++)
                 {
+                    year = rnd.Next(2016, 2022);
+                    month = rnd.Next(1, 13);
+                    if(month == 2)
+                        day = rnd.Next(1, 28);
+                    else day = rnd.Next(1, 30);
+
                     ordersList.Add(new Order
                     {
                         Model_Car = modelCar,
                         Proceeds = rnd.Next(1000000, 6000000),
-                        Date = new DateTime(rnd.Next(2016, 2022), rnd.Next(1, 13), rnd.Next(1, 31))
+                        Date = new DateTime(year, month, day)
                     });
                 }
                 await _db.ModelCars.AddAsync(modelCar);
                 await _db.Orders.AddRangeAsync(ordersList);
+                _Logger.LogInformation("********  InitOrdersAndModelsAsync перед сохранением в БД...");
                 await _db.SaveChangesAsync();
+                modelCar.Brand = null;
+                modelCar.Name = null;
+                modelCar.Id = Guid.Empty;
                 ordersList.Clear();
             }
+            _Logger.LogInformation("******** Завершение метода InitOrdersAndModelsAsync...");
         }
 
     }
