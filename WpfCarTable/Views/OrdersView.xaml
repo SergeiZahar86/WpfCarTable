@@ -11,23 +11,24 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ComputeStatisticCommand}" />
+            <i:InvokeCommandAction Command="{Binding ComputeStatisticOrdersCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <TextBlock VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Text="Заказы"
-                   FontSize="30"
-                   FontWeight="Bold">
-            <TextBlock.Effect>
+        <StackPanel Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="30"
+                       FontWeight="Bold">
+            <!--<TextBlock.Effect>
                 <DropShadowEffect ShadowDepth="1" />
-            </TextBlock.Effect>
+            </TextBlock.Effect>-->
+            Число моделей <TextBlock Text="{Binding CountModel}" />
         </TextBlock>
-        <TextBlock 
-                   HorizontalAlignment="Center"
-                   FontSize="30"
-                   FontWeight="Bold">
-            Число заказов <TextBlock Text="{Binding Count}"/>
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="30"
+                       FontWeight="Bold">
+            Число заказов <TextBlock Text="{Binding Count}" />
         </TextBlock>
+        </StackPanel>
     </Grid>
 </UserControl>

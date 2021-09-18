@@ -82,7 +82,7 @@ namespace WpfCarTable.Data
 
 
         private List<Order> ordersList = new List<Order>();
-        private ModelCar modelCar = new ModelCar();
+        //private ModelCar modelCar = new ModelCar();
         Random rnd = new();
         private int year;
         private int month;
@@ -153,9 +153,15 @@ namespace WpfCarTable.Data
         {
             for (var i = 0; i < modelArray.Length; i++)
             {
-                modelCar.Id = new Guid();
-                modelCar.Brand = br;
-                modelCar.Name = modelArray[i];
+                ModelCar modelCar = new ModelCar
+                {
+                    Id = new Guid(),
+                    Brand = br,
+                    Name = modelArray[i]
+                };
+                //modelCar.Id = new Guid();
+                //modelCar.Brand = br;
+                //modelCar.Name = modelArray[i];
 
                 for (int k = 0; k < 100; k++)
                 {
@@ -176,9 +182,9 @@ namespace WpfCarTable.Data
                 await _db.Orders.AddRangeAsync(ordersList);
                 _Logger.LogInformation("********  InitOrdersAndModelsAsync перед сохранением в БД...");
                 await _db.SaveChangesAsync();
-                modelCar.Brand = null;
-                modelCar.Name = null;
-                modelCar.Id = Guid.Empty;
+                //modelCar.Brand = null;
+                //modelCar.Name = null;
+                //modelCar.Id = Guid.Empty;
                 ordersList.Clear();
             }
             _Logger.LogInformation("******** Завершение метода InitOrdersAndModelsAsync...");
