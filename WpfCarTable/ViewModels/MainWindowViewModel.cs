@@ -48,7 +48,7 @@ namespace WpfCarTable.ViewModels
         }
         #endregion
 
-        #region Command ShowOrdersViewCommand - Отобразить представление заказов
+        #region Command ShowOrdersViewCommand - Отобразить представление заказов /////////////////////////////////////////////
         /// <summary>Отобразить представление заказов</summary>
         private ICommand _ShowOrdersViewCommand;
 
@@ -66,6 +66,23 @@ namespace WpfCarTable.ViewModels
         }
         #endregion
 
+        #region Command ShowChartViewCommand - Отобразить представление графика ///////////////////////////////////////////////////
+        /// <summary>Отобразить представление графика</summary>
+        private ICommand _ShowChartViewCommand;
+
+        /// <summary>Отобразить представление графика</summary>
+        public ICommand ShowChartViewCommand => _ShowChartViewCommand
+            ??= new LambdaCommand(OnShowChartViewCommandExecuted, CanShowChartViewCommandExecute);
+
+        /// <summary>Проверка возможности выполнения - Отобразить представление графика</summary>
+        private bool CanShowChartViewCommandExecute(object p) => true;
+
+        /// <summary>Логика выполнения - Отобразить представление графика</summary>
+        private void OnShowChartViewCommandExecuted(object p)
+        {
+            CurrentModel = new СhartViewModel(_OrderRepository, _ModelCarRepository);
+        }
+        #endregion
 
         #endregion
 

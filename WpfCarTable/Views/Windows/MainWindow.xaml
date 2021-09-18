@@ -13,14 +13,21 @@
         Width="1200">
     <DockPanel>
         <Menu IsMainMenu="True">
-            <MenuItem Header="Заказы" />
-            <MenuItem Header="График" />
+            <MenuItem Header="Заказы" Command="{Binding ShowOrdersViewCommand}"/>
+            <MenuItem Header="График" Command="{Binding ShowChartViewCommand}"/>
         </Menu>
         <StatusBar>
             <StatusBarItem>Готово</StatusBarItem>
         </StatusBar>
         <Grid>
-            
+            <!--<Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="../../Templates/ModelMainView.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>-->
+            <ContentControl Content="{Binding CurrentModel}" />
         </Grid>
     </DockPanel>
 </Window>

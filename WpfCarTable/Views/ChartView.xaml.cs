@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfCarTable.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Orders.xaml
+    /// Логика взаимодействия для ChartView.xaml
     /// </summary>
-    public partial class Orders : UserControl
+    public partial class ChartView : UserControl
     {
-        public Orders()
+        public ChartView()
         {
             InitializeComponent();
         }
