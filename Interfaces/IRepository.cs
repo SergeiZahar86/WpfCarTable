@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Interfaces
         /// </summary>
         /// <param name="Cancel"></param>
         /// <returns></returns>
-        Task<T[]> GetAllAsync(CancellationToken Cancel = default);
+        List<T> GetAll(CancellationToken Cancel = default);
 
         /// <summary>
         /// Получение записи по id

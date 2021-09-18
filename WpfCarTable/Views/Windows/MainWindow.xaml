@@ -9,9 +9,18 @@
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="{Binding Path=Title}"
-        Height="450"
-        Width="800">
-    <Grid>
-
-    </Grid>
+        Height="650"
+        Width="1200">
+    <DockPanel>
+        <Menu IsMainMenu="True">
+            <MenuItem Header="Заказы" />
+            <MenuItem Header="График" />
+        </Menu>
+        <StatusBar>
+            <StatusBarItem>Готово</StatusBarItem>
+        </StatusBar>
+        <Grid>
+            
+        </Grid>
+    </DockPanel>
 </Window>

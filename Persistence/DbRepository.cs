@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Entities;
 using Persistence.Entities.Base;
 using System;
 using System.Collections.Generic;
@@ -33,10 +34,9 @@ namespace Persistence
 
 
 
-
-        public async Task<T[]> GetAllAsync(CancellationToken Cancel = default)
+        public List<T> GetAll(CancellationToken Cancel = default)
         {
-            return await Items.ToArrayAsync();
+            return Items.ToList();
         }
 
         public T Get(Guid id)
