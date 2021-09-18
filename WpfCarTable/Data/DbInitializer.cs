@@ -164,8 +164,8 @@ namespace WpfCarTable.Data
                     year = rnd.Next(2016, 2022);
                     month = rnd.Next(1, 13);
                     if(month == 2)
-                        day = rnd.Next(1, 28);
-                    else day = rnd.Next(1, 30);
+                        day = rnd.Next(1, 29);
+                    else day = rnd.Next(1, 31);
 
                     ordersList.Add(new Order
                     {

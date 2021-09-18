@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.EntityTypeConfigurations
+namespace Interfaces
 {
-    public class ModelCarConfiguration
+    public interface IEntity
     {
-        
+        Guid Id { get; set; }
     }
 }

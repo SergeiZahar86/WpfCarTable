@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCarTable", "WpfCarTable\WpfCarTable.csproj", "{FF61862B-F56A-472E-A975-3AD1B8D86441}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCarTable", "WpfCarTable\WpfCarTable.csproj", "{FF61862B-F56A-472E-A975-3AD1B8D86441}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{3F818274-5CE3-4B50-9951-68514BCF740B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{86104F47-2815-4063-BA71-2D1A1C69DE67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{86104F47-2815-4063-BA71-2D1A1C69DE67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{C62FC886-E687-4F5A-893A-DB965425BCC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{FF61862B-F56A-472E-A975-3AD1B8D86441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF61862B-F56A-472E-A975-3AD1B8D86441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF61862B-F56A-472E-A975-3AD1B8D86441}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F818274-5CE3-4B50-9951-68514BCF740B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F818274-5CE3-4B50-9951-68514BCF740B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F818274-5CE3-4B50-9951-68514BCF740B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F818274-5CE3-4B50-9951-68514BCF740B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86104F47-2815-4063-BA71-2D1A1C69DE67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86104F47-2815-4063-BA71-2D1A1C69DE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86104F47-2815-4063-BA71-2D1A1C69DE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86104F47-2815-4063-BA71-2D1A1C69DE67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62FC886-E687-4F5A-893A-DB965425BCC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62FC886-E687-4F5A-893A-DB965425BCC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62FC886-E687-4F5A-893A-DB965425BCC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62FC886-E687-4F5A-893A-DB965425BCC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
