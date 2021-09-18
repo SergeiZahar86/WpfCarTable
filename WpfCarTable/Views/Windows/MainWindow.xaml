@@ -6,11 +6,17 @@
         xmlns:local="clr-namespace:WpfCarTable"
         xmlns:vm="clr-namespace:WpfCarTable.ViewModels"
         xmlns:cmd="clr-namespace:WpfCarTable.Infrastructure.Commands"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="{Binding Path=Title}"
         Height="650"
         Width="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ShowOrdersViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel>
         <Menu IsMainMenu="True">
             <MenuItem Header="Заказы" Command="{Binding ShowOrdersViewCommand}"/>

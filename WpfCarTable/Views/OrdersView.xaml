@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WpfCarTable.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ComputeStatisticCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <TextBlock VerticalAlignment="Center"
                    HorizontalAlignment="Center"
@@ -15,6 +21,13 @@
                    FontWeight="Bold">
             <TextBlock.Effect>
                 <DropShadowEffect ShadowDepth="1" />
-            </TextBlock.Effect></TextBlock>
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock 
+                   HorizontalAlignment="Center"
+                   FontSize="30"
+                   FontWeight="Bold">
+            Число заказов <TextBlock Text="{Binding Count}"/>
+        </TextBlock>
     </Grid>
 </UserControl>
