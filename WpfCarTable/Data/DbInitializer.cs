@@ -5,10 +5,7 @@ using Persistence.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using WpfCarTable.Services;
 
 namespace WpfCarTable.Data
 {
@@ -82,7 +79,6 @@ namespace WpfCarTable.Data
 
 
         private List<Order> ordersList = new List<Order>();
-        //private ModelCar modelCar = new ModelCar();
         Random rnd = new();
         private int year;
         private int month;
@@ -94,34 +90,12 @@ namespace WpfCarTable.Data
 
             foreach(BrandCar br in brandCars)
             {
-                //modelCar.Brand = null;
-                //modelCar.Name = null;
-
                 switch (br.Name)
                 {
                     case "BMW":
                         _Logger.LogInformation("Инициализация моделей и заказов BMW...");
                         await InitOrdersAndModelsAsync(br, modelBMW);
                         _Logger.LogInformation("Инициализация марок BMW выполнена за {0} мс", timer.ElapsedMilliseconds);
-                        //for (var i = 0; i < modelBMW.Length; i++)
-                        //{
-                        //    modelCar.Brand = br;
-                        //    modelCar.Name = modelBMW[1];
-
-                        //    for (int k = 0; k < 100; k++)
-                        //    {
-                        //        ordersList.Add(new Order
-                        //        {
-                        //            Model_Car = modelCar,
-                        //            Proceeds = rnd.Next(1000000, 6000000),
-                        //            Date = new DateTime(rnd.Next(2016,2022),rnd.Next(1,13),rnd.Next(1,31))
-                        //        });
-                        //    }
-                        //    await _db.ModelCars.AddAsync(modelCar);
-                        //    await _db.Orders.AddRangeAsync(ordersList);
-                        //    ordersList.Clear();
-                        //}
-
                         break;
                     case "Audi":
                         _Logger.LogInformation("Инициализация моделей и заказов Audi...");
@@ -159,10 +133,6 @@ namespace WpfCarTable.Data
                     Brand = br,
                     Name = modelArray[i]
                 };
-                //modelCar.Id = new Guid();
-                //modelCar.Brand = br;
-                //modelCar.Name = modelArray[i];
-
                 for (int k = 0; k < 100; k++)
                 {
                     year = rnd.Next(2016, 2022);
@@ -182,9 +152,6 @@ namespace WpfCarTable.Data
                 await _db.Orders.AddRangeAsync(ordersList);
                 _Logger.LogInformation("********  InitOrdersAndModelsAsync перед сохранением в БД...");
                 await _db.SaveChangesAsync();
-                //modelCar.Brand = null;
-                //modelCar.Name = null;
-                //modelCar.Id = Guid.Empty;
                 ordersList.Clear();
             }
             _Logger.LogInformation("******** Завершение метода InitOrdersAndModelsAsync...");

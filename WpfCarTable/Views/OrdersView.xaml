@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:WpfCarTable.Views"
              xmlns:vm="clr-namespace:WpfCarTable.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
              d:DataContext="{d:DesignInstance {x:Type vm:OrdersViewModel}}"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -25,19 +26,32 @@
                 <DropShadowEffect ShadowDepth="1" />
             </TextBlock.Effect>-->
             Число моделей <TextBlock Text="{Binding Statistics_Orders.Count}" />
-        </TextBlock>
-            <TextBlock HorizontalAlignment="Center"
-                       FontSize="30"
-                       FontWeight="Bold">
-            Число заказов <TextBlock Text="{Binding Count}" />
-        </TextBlock>
-            <DataGrid ItemsSource="{Binding Statistics_Orders}"
-                      IsReadOnly="False"
+            </TextBlock>
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="30"
+                           FontWeight="Bold">
+                Число заказов <TextBlock Text="{Binding Count}" />
+            </TextBlock>
+            <StackPanel Orientation="Horizontal"
+                        Margin="30,10">
+                <fa5:ImageAwesome Icon="Solid_Search"
+                                  Foreground="Red"
+                                  Height="10"
+                                  Margin="0,0,10,0" 
+                                  VerticalAlignment="Center"/>
+                <TextBox Text="{Binding ModelsFilter, UpdateSourceTrigger=PropertyChanged}"
+                         Width="200"/>
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding ModelsView}"
+                      IsReadOnly="True"
                       AutoGenerateColumns="False"
-                      VerticalGridLinesBrush="DarkGray">
+                      VerticalGridLinesBrush="DarkGray"
+                      MaxHeight="400"
+                      ColumnWidth="*">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Модель авто"
-                                        Binding="{Binding ModelName}" />
+                                        Binding="{Binding ModelName}" 
+                                        MinWidth="200"/>
                     <DataGridTextColumn Header="Январь"
                                         Binding="{Binding OrdersInJanuary}" />
                     <DataGridTextColumn Header="Февраль"

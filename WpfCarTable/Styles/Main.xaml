@@ -17,6 +17,8 @@
     <Style TargetType="DataGrid">
         <Setter Property="CanUserAddRows"
                 Value="False" />
+        <Setter Property="Margin"
+                Value="20,0" />
         <Setter Property="CanUserDeleteRows"
                 Value="False" />
         <Setter Property="AutoGenerateColumns"

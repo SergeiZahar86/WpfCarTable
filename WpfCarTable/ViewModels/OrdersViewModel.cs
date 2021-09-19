@@ -1,10 +1,13 @@
 ﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using WpfCarTable.Infrastructure.Commands;
 using WpfCarTable.Models;
@@ -17,8 +20,15 @@ namespace WpfCarTable.ViewModels
         private readonly IRepository<Order> _OrderRepository;
         private readonly IRepository<ModelCar> _ModelCarRepository;
         private readonly MainWindowViewModel _mainWindowViewModel;
+
         public ObservableCollection<StatisticOrders> Statistics_Orders { get; set; }
             = new ObservableCollection<StatisticOrders>();
+
+
+
+        private CollectionViewSource _ModelsViewSource;
+        public ICollectionView ModelsView => _ModelsViewSource.View;
+
 
         public OrdersViewModel(IRepository<Order> order,
             IRepository<ModelCar> modelCarRepository,
@@ -27,10 +37,32 @@ namespace WpfCarTable.ViewModels
             _OrderRepository = order;
             _ModelCarRepository = modelCarRepository;
             _mainWindowViewModel = mainWindowViewModel;
-            //var title = _mainWindowViewModel.Title;
 
             if (_mainWindowViewModel.Statistics_Orders_Main_ViewModel.Count != 0)
                 Statistics_Orders = _mainWindowViewModel.Statistics_Orders_Main_ViewModel;
+
+            _ModelsViewSource = new CollectionViewSource
+            {
+                Source = Statistics_Orders,
+                SortDescriptions =
+                {
+                    new SortDescription(nameof(StatisticOrders.ModelName), ListSortDirection.Ascending)
+                }
+            };
+            _ModelsViewSource.Filter += OnModelsFilter;
+        }
+
+        /// <summary>
+        /// Обработчик фильтра
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnModelsFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is StatisticOrders statisticOrders) || string.IsNullOrEmpty(ModelsFilter)) return;
+
+            if (!statisticOrders.ModelName.Contains(ModelsFilter))
+                e.Accepted = false;
         }
 
         #region количество заказов
@@ -53,6 +85,20 @@ namespace WpfCarTable.ViewModels
         private int _countModel;
         #endregion
 
+        #region ModelsFilter : string - Искомое слово
+        private string _ModelsFilter;
+        public string ModelsFilter
+        {
+            get => _ModelsFilter;
+            set 
+            {
+                if (Set(ref _ModelsFilter, value))
+                    _ModelsViewSource.View.Refresh();
+            }
+        }
+
+        #endregion
+
 
         #region Command ComputeStatisticCommand - Вычислить статистические данные
         /// <summary>Вычислить статистические данные</summary>
@@ -70,11 +116,6 @@ namespace WpfCarTable.ViewModels
             Count = await _OrderRepository.Items.CountAsync();
         }
         #endregion
-
-
-
-
-
 
 
         private string[] month = { "-01-", "-02-", "-03-", "-04-",
@@ -96,9 +137,6 @@ namespace WpfCarTable.ViewModels
         {
             if (_mainWindowViewModel.Statistics_Orders_Main_ViewModel.Count == 0)
             {
-
-
-
                 var models = await _ModelCarRepository.Items.Select(x => x.Name).ToArrayAsync();
                 for (int i = 0; i < models.Length; i++)
                 {
@@ -131,10 +169,7 @@ namespace WpfCarTable.ViewModels
                 }
                 _mainWindowViewModel.Statistics_Orders_Main_ViewModel = Statistics_Orders;
             }
-            //else Statistics_Orders = _mainWindowViewModel.Statistics_Orders_Main_ViewModel;
         }
         #endregion
-
-
     }
 }

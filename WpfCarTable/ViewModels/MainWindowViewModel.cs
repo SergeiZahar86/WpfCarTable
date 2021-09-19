@@ -1,8 +1,6 @@
 ﻿using Interfaces;
 using Persistence.Entities;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WpfCarTable.Infrastructure.Commands;
@@ -13,7 +11,6 @@ namespace WpfCarTable.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
-        //private Guid Id = new Guid("37fdeb00-149d-4c5a-f845-08d97a5f07d7");
         private readonly IRepository<Order> _OrderRepository;
         private readonly IRepository<ModelCar> _ModelCarRepository;
         public ObservableCollection<StatisticOrders> Statistics_Orders_Main_ViewModel { get; set; }
@@ -21,15 +18,11 @@ namespace WpfCarTable.ViewModels
 
 
         #region CurrentModel : ViewModel - Текущая дочерняя модель-представления
-
         /// <summary>Текущая дочерняя модель-представления</summary>
         private ViewModel _CurrentModel;
-
         /// <summary>Текущая дочерняя модель-представления</summary>
         public ViewModel CurrentModel { get => _CurrentModel; private set => Set(ref _CurrentModel, value); }
-
         #endregion
-
 
         #region Заголовок окна
         /// <summary>Заголовок окна</summary>
@@ -40,7 +33,6 @@ namespace WpfCarTable.ViewModels
         }
         private string _title = "Объёмы продаж";
         #endregion
-
 
         #region Команды
 
@@ -56,14 +48,11 @@ namespace WpfCarTable.ViewModels
         #region Command ShowOrdersViewCommand - Отобразить представление заказов /////////////////////////////////////////////
         /// <summary>Отобразить представление заказов</summary>
         private ICommand _ShowOrdersViewCommand;
-
         /// <summary>Отобразить представление заказов</summary>
         public ICommand ShowOrdersViewCommand => _ShowOrdersViewCommand
             ??= new LambdaCommand(OnShowOrdersViewCommandExecuted, CanShowOrdersViewCommandExecute);
-
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
         private bool CanShowOrdersViewCommandExecute(object p) => true;
-
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrdersViewCommandExecuted(object p)
         {
@@ -74,14 +63,11 @@ namespace WpfCarTable.ViewModels
         #region Command ShowChartViewCommand - Отобразить представление графика ///////////////////////////////////////////////////
         /// <summary>Отобразить представление графика</summary>
         private ICommand _ShowChartViewCommand;
-
         /// <summary>Отобразить представление графика</summary>
         public ICommand ShowChartViewCommand => _ShowChartViewCommand
             ??= new LambdaCommand(OnShowChartViewCommandExecuted, CanShowChartViewCommandExecute);
-
         /// <summary>Проверка возможности выполнения - Отобразить представление графика</summary>
         private bool CanShowChartViewCommandExecute(object p) => true;
-
         /// <summary>Логика выполнения - Отобразить представление графика</summary>
         private void OnShowChartViewCommandExecuted(object p)
         {
@@ -103,11 +89,6 @@ namespace WpfCarTable.ViewModels
 
             _OrderRepository = order;
             _ModelCarRepository = modelCarRepository;
-
-            var orders = _OrderRepository.Items.Take(10).ToArray();
-            var orders6 = _OrderRepository.Items.ToArray();
-            List<Order> orders2 = _OrderRepository.GetAll();
-            List<ModelCar> modelCars = _ModelCarRepository.GetAll();
         }
     }
 }
