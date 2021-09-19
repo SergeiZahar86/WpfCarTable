@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WpfCarTable.Views"
+             xmlns:vm="clr-namespace:WpfCarTable.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             d:DataContext="{d:DesignInstance {x:Type vm:OrdersViewModel}}"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -22,13 +24,47 @@
             <!--<TextBlock.Effect>
                 <DropShadowEffect ShadowDepth="1" />
             </TextBlock.Effect>-->
-            Число моделей <TextBlock Text="{Binding CountModel}" />
+            Число моделей <TextBlock Text="{Binding Statistics_Orders.Count}" />
         </TextBlock>
             <TextBlock HorizontalAlignment="Center"
                        FontSize="30"
                        FontWeight="Bold">
             Число заказов <TextBlock Text="{Binding Count}" />
         </TextBlock>
+            <DataGrid ItemsSource="{Binding Statistics_Orders}"
+                      IsReadOnly="False"
+                      AutoGenerateColumns="False"
+                      VerticalGridLinesBrush="DarkGray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Модель авто"
+                                        Binding="{Binding ModelName}" />
+                    <DataGridTextColumn Header="Январь"
+                                        Binding="{Binding OrdersInJanuary}" />
+                    <DataGridTextColumn Header="Февраль"
+                                        Binding="{Binding OrdersInFebruary}" />
+                    <DataGridTextColumn Header="Март"
+                                        Binding="{Binding OrdersInMarch}" />
+                    <DataGridTextColumn Header="Апрель"
+                                        Binding="{Binding OrdersInApril}" />
+                    <DataGridTextColumn Header="Май"
+                                        Binding="{Binding OrdersInMay}" />
+                    <DataGridTextColumn Header="Июнь"
+                                        Binding="{Binding OrdersInJune}" />
+                    <DataGridTextColumn Header="Июль"
+                                        Binding="{Binding OrdersInJuly}" />
+                    <DataGridTextColumn Header="Август"
+                                        Binding="{Binding OrdersInAugust}" />
+                    <DataGridTextColumn Header="Сентябрь"
+                                        Binding="{Binding OrdersInSeptember}" />
+                    <DataGridTextColumn Header="Октябрь"
+                                        Binding="{Binding OrdersInOctober}" />
+                    <DataGridTextColumn Header="Ноябрь"
+                                        Binding="{Binding OrdersInNovember}" />
+                    <DataGridTextColumn Header="Декабрь"
+                                        Binding="{Binding OrdersInDecember}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
+        
     </Grid>
 </UserControl>

@@ -16,14 +16,21 @@ namespace WpfCarTable.ViewModels
     {
         private readonly IRepository<Order> _OrderRepository;
         private readonly IRepository<ModelCar> _ModelCarRepository;
-        public ObservableCollection<StatisticOrders> Statistics_Orders { get; }
+        private readonly MainWindowViewModel _mainWindowViewModel;
+        public ObservableCollection<StatisticOrders> Statistics_Orders { get; set; }
             = new ObservableCollection<StatisticOrders>();
 
         public OrdersViewModel(IRepository<Order> order,
-            IRepository<ModelCar> modelCarRepository)
+            IRepository<ModelCar> modelCarRepository,
+            MainWindowViewModel mainWindowViewModel)
         {
             _OrderRepository = order;
             _ModelCarRepository = modelCarRepository;
+            _mainWindowViewModel = mainWindowViewModel;
+            //var title = _mainWindowViewModel.Title;
+
+            if (_mainWindowViewModel.Statistics_Orders_Main_ViewModel.Count != 0)
+                Statistics_Orders = _mainWindowViewModel.Statistics_Orders_Main_ViewModel;
         }
 
         #region количество заказов
@@ -87,38 +94,44 @@ namespace WpfCarTable.ViewModels
         }
         private async Task ComputeDealsStatisticOrdersAsync()
         {
-            var models = await _ModelCarRepository.Items.Select(x=>x.Name).ToArrayAsync();
-
-
-            for(int i = 0; i < models.Length; i++)
+            if (_mainWindowViewModel.Statistics_Orders_Main_ViewModel.Count == 0)
             {
-                for(int k = 0; k < month.Length; k++)
+
+
+
+                var models = await _ModelCarRepository.Items.Select(x => x.Name).ToArrayAsync();
+                for (int i = 0; i < models.Length; i++)
                 {
-                    summ.Add(await _OrderRepository
-                    .Items
-                    .Where(x => x.Model_Car.Name == models[i])
-                    .Where(x => EF.Functions.Like(x.Date.Date.ToString(), $"%{month[k]}%"))
-                    .SumAsync(x => x.Proceeds));
+                    for (int k = 0; k < month.Length; k++)
+                    {
+                        summ.Add(await _OrderRepository
+                        .Items
+                        .Where(x => x.Model_Car.Name == models[i])
+                        .Where(x => EF.Functions.Like(x.Date.Date.ToString(), $"%{month[k]}%"))
+                        .SumAsync(x => x.Proceeds));
+                    }
+                    StatisticOrders statisticOrders = new StatisticOrders
+                    {
+                        ModelName = models[i],
+                        OrdersInJanuary = summ[0],
+                        OrdersInFebruary = summ[1],
+                        OrdersInMarch = summ[2],
+                        OrdersInApril = summ[3],
+                        OrdersInMay = summ[4],
+                        OrdersInJune = summ[5],
+                        OrdersInJuly = summ[6],
+                        OrdersInAugust = summ[7],
+                        OrdersInSeptember = summ[8],
+                        OrdersInOctober = summ[9],
+                        OrdersInNovember = summ[10],
+                        OrdersInDecember = summ[11]
+                    };
+                    Statistics_Orders.Add(statisticOrders);
+                    summ.Clear();
                 }
-                StatisticOrders statisticOrders = new StatisticOrders
-                {
-                    ModelName = models[i],
-                    OrdersInJanuary = summ[0],
-                    OrdersInFebruary = summ[1],
-                    OrdersInMarch = summ[2],
-                    OrdersInApril = summ[3],
-                    OrdersInMay = summ[4],
-                    OrdersInJune = summ[5],
-                    OrdersInJuly = summ[6],
-                    OrdersInAugust = summ[7],
-                    OrdersInSeptember = summ[8],
-                    OrdersInOctober = summ[9],
-                    OrdersInNovember = summ[10],
-                    OrdersInDecember = summ[11]
-                };
-                Statistics_Orders.Add(statisticOrders);
-                summ.Clear();
+                _mainWindowViewModel.Statistics_Orders_Main_ViewModel = Statistics_Orders;
             }
+            //else Statistics_Orders = _mainWindowViewModel.Statistics_Orders_Main_ViewModel;
         }
         #endregion
 

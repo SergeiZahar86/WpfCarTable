@@ -1,10 +1,12 @@
 ﻿using Interfaces;
 using Persistence.Entities;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WpfCarTable.Infrastructure.Commands;
+using WpfCarTable.Models;
 using WpfCarTable.ViewModels.Base;
 
 namespace WpfCarTable.ViewModels
@@ -14,6 +16,9 @@ namespace WpfCarTable.ViewModels
         //private Guid Id = new Guid("37fdeb00-149d-4c5a-f845-08d97a5f07d7");
         private readonly IRepository<Order> _OrderRepository;
         private readonly IRepository<ModelCar> _ModelCarRepository;
+        public ObservableCollection<StatisticOrders> Statistics_Orders_Main_ViewModel { get; set; }
+            = new ObservableCollection<StatisticOrders>();
+
 
         #region CurrentModel : ViewModel - Текущая дочерняя модель-представления
 
@@ -62,7 +67,7 @@ namespace WpfCarTable.ViewModels
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrdersViewCommandExecuted(object p)
         {
-            CurrentModel = new OrdersViewModel(_OrderRepository, _ModelCarRepository);
+            CurrentModel = new OrdersViewModel(_OrderRepository, _ModelCarRepository, this);
         }
         #endregion
 
