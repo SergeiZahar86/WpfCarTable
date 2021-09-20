@@ -13,6 +13,7 @@ namespace WpfCarTable.ViewModels
     {
         private readonly IRepository<Order> _OrderRepository;
         private readonly IRepository<ModelCar> _ModelCarRepository;
+        private bool FirstRun = true;
         public ObservableCollection<StatisticOrders> Statistics_Orders_Main_ViewModel { get; set; }
             = new ObservableCollection<StatisticOrders>();
 
@@ -88,7 +89,12 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowOrders2016ViewCommand => _ShowOrders2016ViewCommand
             ??= new LambdaCommand(OnShowOrders2016ViewCommandExecuted, CanShowOrders2016ViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
-        private bool CanShowOrders2016ViewCommandExecute(object p) => true;
+        private bool CanShowOrders2016ViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrders2016ViewCommandExecuted(object p)
         {
@@ -103,7 +109,13 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowOrders2017ViewCommand => _ShowOrders2017ViewCommand
             ??= new LambdaCommand(OnShowOrders2017ViewCommandExecuted, CanShowOrders2017ViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
-        private bool CanShowOrders2017ViewCommandExecute(object p) => true;
+        private bool CanShowOrders2017ViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
+
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrders2017ViewCommandExecuted(object p)
         {
@@ -118,7 +130,13 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowOrders2018ViewCommand => _ShowOrders2018ViewCommand
             ??= new LambdaCommand(OnShowOrders2018ViewCommandExecuted, CanShowOrders2018ViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
-        private bool CanShowOrders2018ViewCommandExecute(object p) => true;
+        private bool CanShowOrders2018ViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
+
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrders2018ViewCommandExecuted(object p)
         {
@@ -133,7 +151,13 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowOrders2019ViewCommand => _ShowOrders2019ViewCommand
             ??= new LambdaCommand(OnShowOrders2019ViewCommandExecuted, CanShowOrders2019ViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
-        private bool CanShowOrders2019ViewCommandExecute(object p) => true;
+        private bool CanShowOrders2019ViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
+
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrders2019ViewCommandExecuted(object p)
         {
@@ -148,7 +172,13 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowOrders2020ViewCommand => _ShowOrders2020ViewCommand
             ??= new LambdaCommand(OnShowOrders2020ViewCommandExecuted, CanShowOrders2020ViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
-        private bool CanShowOrders2020ViewCommandExecute(object p) => true;
+        private bool CanShowOrders2020ViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
+
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrders2020ViewCommandExecuted(object p)
         {
@@ -163,7 +193,13 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowOrders2021ViewCommand => _ShowOrders2021ViewCommand
             ??= new LambdaCommand(OnShowOrders2021ViewCommandExecuted, CanShowOrders2021ViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление заказов</summary>
-        private bool CanShowOrders2021ViewCommandExecute(object p) => true;
+        private bool CanShowOrders2021ViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
+
         /// <summary>Логика выполнения - Отобразить представление заказов</summary>
         private void OnShowOrders2021ViewCommandExecuted(object p)
         {
@@ -179,7 +215,13 @@ namespace WpfCarTable.ViewModels
         public ICommand ShowChartViewCommand => _ShowChartViewCommand
             ??= new LambdaCommand(OnShowChartViewCommandExecuted, CanShowChartViewCommandExecute);
         /// <summary>Проверка возможности выполнения - Отобразить представление графика</summary>
-        private bool CanShowChartViewCommandExecute(object p) => true;
+        private bool CanShowChartViewCommandExecute(object p)
+        {
+            if (Statistics_Orders_Main_ViewModel.Count == 25)
+                return true;
+            else return false;
+        }
+
         /// <summary>Логика выполнения - Отобразить представление графика</summary>
         private void OnShowChartViewCommandExecuted(object p)
         {
