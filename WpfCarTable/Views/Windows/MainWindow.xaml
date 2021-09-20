@@ -19,8 +19,22 @@
     </i:Interaction.Triggers>
     <DockPanel>
         <Menu IsMainMenu="True">
-            <MenuItem Header="Заказы" Command="{Binding ShowOrdersViewCommand}"/>
-            <MenuItem Header="График" Command="{Binding ShowChartViewCommand}"/>
+            <MenuItem Header="Весь период"
+                      Command="{Binding ShowOrdersViewCommand}" />
+            <MenuItem Header="2016"
+                      Command="{Binding ShowOrders2016ViewCommand}" />
+            <MenuItem Header="2017"
+                      Command="{Binding ShowOrders2017ViewCommand}" />
+            <MenuItem Header="2018"
+                      Command="{Binding ShowOrders2018ViewCommand}" />
+            <MenuItem Header="2019"
+                      Command="{Binding ShowOrders2019ViewCommand}" />
+            <MenuItem Header="2020"
+                      Command="{Binding ShowOrders2020ViewCommand}" />
+            <MenuItem Header="2021"
+                      Command="{Binding ShowOrders2021ViewCommand}" />
+            <MenuItem Header="График"
+                      Command="{Binding ShowChartViewCommand}" />
         </Menu>
         <StatusBar>
             <StatusBarItem>Готово</StatusBarItem>

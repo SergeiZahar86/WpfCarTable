@@ -16,4 +16,29 @@
         <view:ChartView DataContext="{Binding}" />
     </DataTemplate>
     
+    <DataTemplate DataType="{x:Type vm:Orders2016ViewModel}">
+        <view:Orders2016View DataContext="{Binding}" />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:Orders2017ViewModel}">
+        <view:Orders2017View DataContext="{Binding}" />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:Orders2018ViewModel}">
+        <view:Orders2018View DataContext="{Binding}" />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:Orders2019ViewModel}">
+        <view:Orders2019View DataContext="{Binding}" />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:Orders2020ViewModel}">
+        <view:Orders2020View DataContext="{Binding}" />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:Orders2021ViewModel}">
+        <view:Orders2021View DataContext="{Binding}" />
+    </DataTemplate>
+    
+    
 </ResourceDictionary>

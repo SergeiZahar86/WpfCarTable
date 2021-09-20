@@ -9,6 +9,8 @@
                         Value="Top" />
             </Trigger>
         </Style.Triggers>
+        <Setter Property="FontSize"
+                Value="17" />
     </Style>
     <Style TargetType="StatusBar">
         <Setter Property="DockPanel.Dock"
