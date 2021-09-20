@@ -37,7 +37,7 @@ namespace WpfCarTable.ViewModels
             _ModelCarRepository = modelCarRepository;
             _mainWindowViewModel = mainWindowViewModel;
 
-            if (_mainWindowViewModel.Statistics_Orders_Main_ViewModel.Count != 0)
+            if (_mainWindowViewModel.Statistics_Orders2016_Main_ViewModel.Count != 0)
                 Statistics_Orders2016 = _mainWindowViewModel.Statistics_Orders2016_Main_ViewModel;
 
             _ModelsViewSource = new CollectionViewSource

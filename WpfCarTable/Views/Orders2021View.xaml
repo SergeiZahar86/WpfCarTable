@@ -4,16 +4,160 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfCarTable.Views"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:service="clr-namespace:WpfCarTable.Service"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ComputeStatisticOrdersCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <service:NameToBrushConverterSmall x:Key="NameToBrushConverterSmall" />
+    </UserControl.Resources>
     <Grid>
-        <TextBlock VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Text="2021"
-                   FontSize="30"
-                   FontWeight="Bold">
-            <TextBlock.Effect>
-                <DropShadowEffect ShadowDepth="1" />
-            </TextBlock.Effect></TextBlock>
+        <StackPanel Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="25"
+                       Margin="20,5"
+                       FontWeight="Bold"
+                       Text="Данные за 2021 год" />
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="18"
+                       Margin="20,5"
+                       Text="Выделение цветом ячеек с суммой свыше 5000000" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="30,10">
+                <fa5:ImageAwesome Icon="Solid_Search"
+                                  Foreground="Red"
+                                  Height="10"
+                                  Margin="0,0,10,0"
+                                  VerticalAlignment="Center" />
+                <TextBox Text="{Binding ModelsFilter, UpdateSourceTrigger=PropertyChanged}"
+                         Width="200" />
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding ModelsView}"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      VerticalGridLinesBrush="DarkGray"
+                      MaxHeight="400"
+                      ColumnWidth="*">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Модель авто"
+                                        Binding="{Binding ModelName}"
+                                        MinWidth="200" />
+                    <DataGridTextColumn Header="Январь"
+                                        Binding="{Binding OrdersInJanuary}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInJanuary, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Февраль"
+                                        Binding="{Binding OrdersInFebruary}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInFebruary, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Март"
+                                        Binding="{Binding OrdersInMarch}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInMarch, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Апрель"
+                                        Binding="{Binding OrdersInApril}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInApril, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Май"
+                                        Binding="{Binding OrdersInMay}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInMay, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Июнь"
+                                        Binding="{Binding OrdersInJune}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInJune, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Июль"
+                                        Binding="{Binding OrdersInJuly}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInJuly, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Август"
+                                        Binding="{Binding OrdersInAugust}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInAugust, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Сентябрь"
+                                        Binding="{Binding OrdersInSeptember}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInSeptember, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Октябрь"
+                                        Binding="{Binding OrdersInOctober}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInOctober, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Ноябрь"
+                                        Binding="{Binding OrdersInNovember}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInNovember, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Декабрь"
+                                        Binding="{Binding OrdersInDecember}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background"
+                                        Value="{Binding OrdersInDecember, Converter={StaticResource NameToBrushConverterSmall}}" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>
